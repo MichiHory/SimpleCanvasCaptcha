@@ -1,0 +1,127 @@
+<div id="overload">
+    <form class="captchaForm" action="#" method="post">
+        <div class="captchaTop">
+            <canvas class="captchaCanvas" width=160 height=50>
+
+            </canvas>
+            <div class="captchaReload" onclick="Captcha.make();">
+                &#x21bb;
+            </div>
+        </div>
+        <div class="captchaLog captchaWarning"></div>
+        <div class="captchaLog captchaSuccess"></div>
+        <div class="captchaControls">
+            <input type="text" class="txtInput" placeholder="Opište text na obrázku" name="captcha">
+            <button class="captchaConfirmBtn" type="submit" name="submit">Odeslat</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function (){
+        Captcha.make();
+    });
+
+    $('.captchaForm').on('submit', function(e){
+        e.preventDefault();
+
+        let captchaText = document.querySelector("#overload .txtInput").value;
+        Captcha.validate(captchaText);
+    });
+
+    const Captcha = (function() {
+        let text = '';
+        let alpha = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','p','q','r','s','t','u','v','w','x','y','z','1','2','3','4','5','6','7','8','9','0'];
+        let colors = [
+            "#ea6a6a",
+            "#beb1dd",
+            "#c95dff",
+            "#faff2b",
+            "#6969ff",
+            "#ff4da9",
+            "#ff845f",
+            "#b8ff40",
+        ];
+        let canvas = document.querySelector("#overload .captchaCanvas");
+        let ctx = canvas.getContext("2d");
+
+        const make = () =>{
+            text = '';
+            let rand = Math.floor(Math.random() * colors.length);
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = colors[rand];
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = '35px verdana';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.strokeStyle = '#262626';
+            ctx.fillStyle = '#262626';
+            ctx.lineWidth = 2;
+
+            for(let w = 0; w < canvas.width; w++){
+                for(let h = 0; h < canvas.width; h++){
+                    let randPoint = Math.round(Math.random() * 20);
+                    if(randPoint > 10){
+                        ctx.fillRect(h, w, 1, 1);
+                    }
+                }
+            }
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(10, 15);
+            ctx.lineTo(155,  30);
+            ctx.stroke();
+
+            ctx.lineWidth = 2;
+            for (let i = 0; i < 6 ; i++){
+                let char = alpha[Math.floor(Math.random() * alpha.length)];
+                let randTranslate = Math.floor((Math.random() * 10) + 15 + (25 * i));
+                let randRotate = Math.floor((Math.random() * 10) + 6);
+                let randRotatePI = Math.round(Math.random()) > 0 ? Math.PI : -Math.PI;
+
+                text += char;
+
+                ctx.translate(randTranslate,25);
+                ctx.rotate(randRotatePI/randRotate);
+                ctx.fillText(char,0,0);
+                ctx.strokeText(char,0,0);
+                ctx.setTransform(1,0,0,1,0,0);
+
+            }
+        }
+
+        const validate = (t = '') => {
+            t = t.toLowerCase();
+            text = text.toLowerCase();
+            let $overloadLogWarn = $('#overload .captchaLog.captchaWarning');
+            let $overloadLogSucc = $('#overload .captchaLog.captchaSuccess');
+            if(t === text){
+                $.post( "/", { userCaptcha: t} )
+                    .done(function(data){
+                        if(data == 'approved'){
+                            $overloadLogWarn.hide();
+                            $overloadLogSucc.html("Successfull);
+                            $overloadLogSucc.show();
+                            location.reload();
+                        }
+                    }).error(function () {
+                        $overloadLogWarn.html("Unkonown error");
+                        $overloadLogWarn.show();
+                        make();
+                    });
+            }else{
+                $overloadLogWarn.html("Text is not same");
+                $overloadLogWarn.show();
+                make();
+            }
+        }
+
+        return {
+            make,
+            validate,
+        }
+    })();
+
+</script>
