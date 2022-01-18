@@ -13,7 +13,9 @@ Again, just copy > paste work
 In javascript, there is validate method which was used to verify via php script,
 
 You can remove the $post part and use just verifying via javascript like:
-`sessionStorage.setItem("verified", "true");
-return true;`
+```
+sessionStorage.setItem("verified", "true");
+return true;
+```
 
 Or, you can use own php script to complete verification
