@@ -1,0 +1,96 @@
+#overload{
+    margin: 15px;
+    display: flex;
+    flex-direction: row;
+}
+
+#overload .captchaForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #d20c0f;
+    background: #fff3e3;
+    border-radius: 5px;
+}
+
+#overload .captchaForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#overload .captchaForm .captchaTop{
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    justify-content: space-between;
+}
+
+#overload .captchaForm .captchaCanvas{
+    margin-right: 10px;
+}
+
+#overload .captchaForm .captchaReload{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    background: #d20c0f;
+    border-radius: 50%;
+    color: white;
+    font-size: 30px;
+    line-height: 30px;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+#overload .captchaForm .captchaReload:hover, #overload .captchaForm .captchaConfirmBtn:hover{
+    cursor: pointer;
+    box-shadow: 2px 2px 5px -2px rgba(0,0,0,0.75);
+}
+
+#overload .captchaForm .captchaLog{
+    display: none;
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 10px;
+    padding: 2px 5px;
+}
+
+#overload .captchaForm .captchaLog.captchaWarning{
+    background-color: #FFBABA;
+    color: #D8000C;
+}
+
+#overload .captchaForm .captchaLog.captchaSuccess{
+    background-color: #bcffba;
+    color: #00a918;
+}
+
+#overload .captchaForm .captchaControls{
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+#overload .captchaForm .txtInput{
+    height: 26px;
+    padding: 5px;
+    border: 1px solid #e5e5e5;
+    box-shadow: inset 1px 1px 6px -3px rgba(0, 0, 0, 0.75);
+    border-radius: 5px
+}
+
+#overload .captchaForm .captchaConfirmBtn{
+    margin-top: 10px;
+    padding: 5px 10px;
+    background: #d20c0f;
+    border-radius: 5px;
+    color: white;
+    user-select: none;
+}
