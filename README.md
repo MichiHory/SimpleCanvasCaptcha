@@ -2,9 +2,9 @@
 Simple Captcha generated in canvas element
 
 ## How to use
-Just copy > pasete content of captcha.html to file, where you need it
+Just copy > pasete content of `captcha.html` to file, where you need it
 
-If you do not want to create your own styles, you can use styles in captcha.css
+If you do not want to create your own styles, you can use styles in `captcha.css`
 
 Again, just copy > paste work
 
